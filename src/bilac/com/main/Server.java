@@ -15,6 +15,7 @@ public class Server extends Thread {
   
   public Server() {
     this.usuarios = new HashSet<Usuario>();
+    new Update(this);
   }
   
   @Override 
@@ -40,24 +41,20 @@ public class Server extends Thread {
       Tanque tanque = new Tanque(400,50,180,Color.BLUE);
       Usuario novoUsuario = new Usuario(writer, writerObject, scanner, usuarioSocket, tanque);
       this.usuarios.add(novoUsuario);
-      criarTanqueParaONovoUsuario(novoUsuario);
       new EscutaUsuario(novoUsuario);
     } catch (IOException e) { e.printStackTrace(); }
   }
   
-  private void criarTanqueParaONovoUsuario(Usuario novoUsuario) {
-    HashSet<Tanque> tanques = new HashSet<Tanque>();
-    for (Usuario usuario : usuarios) {
-      tanques.add(usuario.getTanque());
-    }
-    try {
-      novoUsuario.getWriterObject().writeObject(tanques);
-      novoUsuario.getWriterObject().flush();
-    } catch (IOException e) { e.printStackTrace(); };
-  }
-  
   public static void main(String[] args) {
     new Server().start();
+  }
+
+  public HashSet<Usuario> getUsuarios() {
+    return usuarios;
+  }
+
+  public void setUsuarios(HashSet<Usuario> usuarios) {
+    this.usuarios = usuarios;
   }
   
 }
