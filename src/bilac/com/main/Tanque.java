@@ -9,6 +9,7 @@ import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 
 public class Tanque implements Serializable {
 
@@ -64,7 +65,7 @@ public class Tanque implements Serializable {
     this.estaAtivo = estaAtivo;
   }
 
-  public void verificarColisaoComOsTanques(HashSet<Tanque> tanques) {
+  public void verificarColisaoComOsTanques(List<Tanque> tanques) {
     for(Tanque tanque : tanques) {
       if(tanque != this) {
         /*verifica a distancia para checar colisão entre os  tanques*/

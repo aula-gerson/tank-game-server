@@ -3,19 +3,20 @@ package bilac.com.main;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 
 public class Server {
   
-  private HashSet<Tanque> tanques;
+  private List<Tanque> tanques;
   private HashSet<ObjectOutputStream> writer;
   
   public Server() {
-    this.tanques = new HashSet<Tanque>();
+    this.tanques = new ArrayList<Tanque>();
     this.writer = new HashSet<ObjectOutputStream>();
     new Update(this);
     aguardaConexaoUsuario();
@@ -37,7 +38,7 @@ public class Server {
     try {
       ObjectOutputStream writerObject = new ObjectOutputStream(usuarioSocket.getOutputStream());
       Scanner scanner = new Scanner(usuarioSocket.getInputStream());
-      this.tanques.add(new Tanque(400, 50, 80, Color.GREEN));
+      this.tanques.add(new Tanque(400, 50, 160, Color.GRAY));
       this.writer.add(writerObject);
       new EscutaUsuario(scanner);
     } catch (IOException e) { e.printStackTrace(); }
@@ -47,12 +48,12 @@ public class Server {
     new Server();
   }
 
-  public HashSet<Tanque> getTanques() {
+  public List<Tanque> getTanques() {
     return tanques;
   }
 
-  public void setTanques(HashSet<Tanque> usuarios) {
-    this.tanques = usuarios;
+  public void setTanques(List<Tanque> tanques) {
+    this.tanques = tanques;
   }
 
   public HashSet<ObjectOutputStream> getWriter() {
