@@ -25,7 +25,7 @@ public class Tanque implements Serializable {
     this.y = y; 
     this.angulo = angulo;
     this.cor = cor; 
-    this.velocidade = 1;
+    this.velocidade = 5;
     this.tiro = new Tiro(this, -10, -10, 0);
     this.estaAtivo = false;
   }

@@ -5,11 +5,11 @@ import java.util.Scanner;
 
 public class EscutaUsuario extends Thread {
   
-  Usuario usuario;
+  private Scanner scanner;
   
-  public EscutaUsuario(Usuario usuario) {
+  public EscutaUsuario(Scanner scanner) {
     super();
-    this.usuario = usuario;
+    this.scanner = scanner;
     this.start();
   }
   
@@ -18,7 +18,7 @@ public class EscutaUsuario extends Thread {
     super.run();
     try {
       String msg;
-      while((msg = this.usuario.getScanner().nextLine()) != null) {
+      while((msg = this.scanner.nextLine()) != null) {
           System.out.println(msg);
       }
     } catch (Exception e) { System.out.println(e.getMessage()); }

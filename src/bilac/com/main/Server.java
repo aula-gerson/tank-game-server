@@ -9,20 +9,20 @@ import java.net.Socket;
 import java.util.HashSet;
 import java.util.Scanner;
 
-public class Server extends Thread {
+public class Server {
   
-  private HashSet<Usuario> usuarios;
+  private HashSet<Tanque> tanques;
+  private HashSet<ObjectOutputStream> writer;
   
   public Server() {
-    this.usuarios = new HashSet<Usuario>();
+    this.tanques = new HashSet<Tanque>();
+    this.writer = new HashSet<ObjectOutputStream>();
     new Update(this);
+    aguardaConexaoUsuario();
   }
   
-  @Override 
-  public void run() {
-    super.run();
+  public void aguardaConexaoUsuario() {
     try {
-      @SuppressWarnings("resource")
       ServerSocket aguardaUsuario = new ServerSocket(4811);
       System.out.println("Aguardando cliente...");
       while(true) {
@@ -35,26 +35,32 @@ public class Server extends Thread {
   
   private void configuraUsuario(Socket usuarioSocket) {
     try {
-      PrintWriter writer = new PrintWriter(usuarioSocket.getOutputStream());
       ObjectOutputStream writerObject = new ObjectOutputStream(usuarioSocket.getOutputStream());
       Scanner scanner = new Scanner(usuarioSocket.getInputStream());
-      Tanque tanque = new Tanque(400,50,180,Color.BLUE);
-      Usuario novoUsuario = new Usuario(writer, writerObject, scanner, usuarioSocket, tanque);
-      this.usuarios.add(novoUsuario);
-      new EscutaUsuario(novoUsuario);
+      this.tanques.add(new Tanque(400, 50, 80, Color.GREEN));
+      this.writer.add(writerObject);
+      new EscutaUsuario(scanner);
     } catch (IOException e) { e.printStackTrace(); }
   }
   
   public static void main(String[] args) {
-    new Server().start();
+    new Server();
   }
 
-  public HashSet<Usuario> getUsuarios() {
-    return usuarios;
+  public HashSet<Tanque> getTanques() {
+    return tanques;
   }
 
-  public void setUsuarios(HashSet<Usuario> usuarios) {
-    this.usuarios = usuarios;
+  public void setTanques(HashSet<Tanque> usuarios) {
+    this.tanques = usuarios;
+  }
+
+  public HashSet<ObjectOutputStream> getWriter() {
+    return writer;
+  }
+
+  public void setWriter(HashSet<ObjectOutputStream> writer) {
+    this.writer = writer;
   }
   
 }
