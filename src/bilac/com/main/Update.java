@@ -19,13 +19,14 @@ public class Update extends Thread {
       try {
         while(true) {
           updateTanques();
-          sleep(50);
+          sleep(100);
         }
       } catch (InterruptedException e) {e.printStackTrace();}
   }
   
   private void updateTanques() {
     for (Tanque tanque : this.server.getTanques()) {
+      tanque.verificarColisaoComOsTanques(this.server.getTanques());
       tanque.mover();
     }
     for (ObjectOutputStream writer : this.server.getWriter()) {
