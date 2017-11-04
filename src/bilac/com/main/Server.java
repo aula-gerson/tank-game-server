@@ -40,7 +40,7 @@ public class Server {
       Scanner scanner = new Scanner(usuarioSocket.getInputStream());
       this.tanques.add(new Tanque(400, 50, 160, Color.GRAY));
       this.writer.add(writerObject);
-      new EscutaUsuario(scanner);
+      new EscutaUsuario(scanner, this.tanques.get(this.tanques.size()-1));
     } catch (IOException e) { e.printStackTrace(); }
   }
   
