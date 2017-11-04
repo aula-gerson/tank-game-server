@@ -26,8 +26,12 @@ public class Update extends Thread {
   
   private void updateTanques() {
     for (Tanque tanque : this.server.getTanques()) {
+      tanque.setContador(tanque.getContador()-1);
+      if(tanque.getContador() < 0) tanque.setEstaVivo(true);
       tanque.verificarColisaoComOsTanques(this.server.getTanques());
       tanque.mover();
+      tanque.getTiro().mover();
+      tanque.getTiro().verificarColisaoComOsTanques(this.server.getTanques());
     }
     for (ObjectOutputStream writer : this.server.getWriter()) {
       try {
