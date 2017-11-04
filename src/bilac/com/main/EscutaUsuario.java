@@ -3,6 +3,8 @@ package bilac.com.main;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+import bilac.com.entidades.Tanque;
+
 public class EscutaUsuario extends Thread {
   
   private Scanner scanner;

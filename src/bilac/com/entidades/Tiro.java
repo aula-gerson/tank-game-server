@@ -1,4 +1,4 @@
-package bilac.com.main;
+package bilac.com.entidades;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -56,6 +56,7 @@ public class Tiro implements Serializable {
             /*Distancia de acerto*/
             this.x = -10;
             this.y = -10;
+            this.setEstaAtivo(false);
             tanque.setEstaVivo(false);
             tanque.setContador(100);
             tanque.setVelocidade(1);

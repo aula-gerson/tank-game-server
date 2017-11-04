@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
+import bilac.com.entidades.Tanque;
+
 public class Server {
   
   private List<Tanque> tanques;
@@ -38,7 +40,7 @@ public class Server {
     try {
       ObjectOutputStream writerObject = new ObjectOutputStream(usuarioSocket.getOutputStream());
       Scanner scanner = new Scanner(usuarioSocket.getInputStream());
-      this.tanques.add(new Tanque(400, 50, 160, Color.GRAY));
+      this.tanques.add(new Tanque(400, 50, 160, Color.RED));
       this.writer.add(writerObject);
       new EscutaUsuario(scanner, this.tanques.get(this.tanques.size()-1));
     } catch (IOException e) { e.printStackTrace(); }

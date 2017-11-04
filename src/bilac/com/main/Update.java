@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.HashSet;
 
+import bilac.com.entidades.Tanque;
+
 public class Update extends Thread {
   
   private Server server;
