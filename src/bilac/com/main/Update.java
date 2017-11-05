@@ -39,6 +39,7 @@ public class Update extends Thread {
       tanque.getTiro().verificarColisaoComOsTanques(this.server.getTanques());
       if(!tanque.isEstaVivo()) tanque.setCor(Color.BLACK);
       else tanque.setCor(Color.RED);
+      System.out.println(tanque.getTiro().getAngulo());
     }
     this.server.setTanques(Encrypt.listaDeTanques(this.server.getTanques(), 124));
     for (ObjectOutputStream writer : this.server.getWriter()) {
