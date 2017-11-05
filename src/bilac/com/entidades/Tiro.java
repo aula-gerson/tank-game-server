@@ -58,7 +58,7 @@ public class Tiro implements Serializable {
             this.y = -10;
             this.setEstaAtivo(false);
             tanque.setEstaVivo(false);
-            tanque.setContador(100);
+            tanque.setContador(-100);
             tanque.setVelocidade(1);
           }
         }
