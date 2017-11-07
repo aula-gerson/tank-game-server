@@ -12,9 +12,11 @@ import bilac.com.entidades.Tanque;
 public class Update extends Thread {
   
   private Server server;
+  private boolean emEstadoDeCriptografia;
   
   public Update(Server server) {
     this.server = server;
+    this.emEstadoDeCriptografia = false;
     this.start();
   }
   
@@ -39,8 +41,8 @@ public class Update extends Thread {
       tanque.getTiro().verificarColisaoComOsTanques(this.server.getTanques());
       if(!tanque.isEstaVivo()) tanque.setCor(Color.BLACK);
       else tanque.setCor(Color.RED);
-      System.out.println(tanque.getTiro().getAngulo());
     }
+    this.emEstadoDeCriptografia = true;
     this.server.setTanques(Encrypt.listaDeTanques(this.server.getTanques(), 124));
     for (ObjectOutputStream writer : this.server.getWriter()) {
       try {
@@ -50,6 +52,15 @@ public class Update extends Thread {
       } catch (IOException e) { e.printStackTrace(); }
     }
     this.server.setTanques(Descrypt.listaDeTanques(this.server.getTanques(), 124));
+    this.emEstadoDeCriptografia = false;
+  }
+
+  public boolean isEmEstadoDeCriptografia() {
+    return emEstadoDeCriptografia;
+  }
+
+  public void setEmEstadoDeCriptografia(boolean emEstadoDeCriptografia) {
+    this.emEstadoDeCriptografia = emEstadoDeCriptografia;
   }
   
 }

@@ -16,11 +16,12 @@ public class Server {
   
   private List<Tanque> tanques;
   private HashSet<ObjectOutputStream> writer;
+  private Update update;
   
   public Server() {
     this.tanques = new ArrayList<Tanque>();
     this.writer = new HashSet<ObjectOutputStream>();
-    new Update(this);
+    this.update = new Update(this);
     aguardaConexaoUsuario();
   }
   
@@ -42,7 +43,7 @@ public class Server {
       Scanner scanner = new Scanner(usuarioSocket.getInputStream());
       this.tanques.add(new Tanque(400, 50, 160, Color.RED));
       this.writer.add(writerObject);
-      new EscutaUsuario(scanner, this.tanques.get(this.tanques.size()-1));
+      new EscutaUsuario(scanner, this.tanques.get(this.tanques.size()-1), update);
     } catch (IOException e) { e.printStackTrace(); }
   }
   
@@ -64,6 +65,14 @@ public class Server {
 
   public void setWriter(HashSet<ObjectOutputStream> writer) {
     this.writer = writer;
+  }
+
+  public Update getUpdate() {
+    return update;
+  }
+
+  public void setUpdate(Update update) {
+    this.update = update;
   }
   
 }
